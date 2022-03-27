@@ -60,6 +60,10 @@ class PostRepositoryImpl(
 
     override fun getPost(id: Long): Flow<Resource<Post>> = flow {
         emit(Resource.loading())
-        emit(Resource.success(postDao.get(id).toDomainModel()))
+        val post = postDao.get(id)
+        if (post != null)
+            emit(Resource.success(post.toDomainModel()))
+        else
+            emit(Resource.error("Post not found"))
     }.flowOn(Dispatchers.IO)
 }

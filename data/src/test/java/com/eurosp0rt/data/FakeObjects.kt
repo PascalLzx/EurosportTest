@@ -60,3 +60,4 @@ val successResourcePost = flowOf(Resource.success(fakePostObject(1, PostType.VID
 val successResourcePosts = flowOf(Resource.success(fakeListPostsObject()))
 val successResourcePostEmpty = flowOf(Resource.success(listOf<Post>()))
 val errorResource = flowOf(Resource.error("Unknown error : broken", null))
+val errorResourceDatabase = flowOf(Resource.error("Post not found", null))

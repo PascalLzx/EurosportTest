@@ -97,4 +97,16 @@ class PostRepositoryTest {
             }
         }
     }
+
+    @Test
+    fun `should emit an error from the database`() {
+        coEvery { postDao.get(1) } returns null
+        runBlocking {
+            postRepository.getPost(1).test {
+                assertEquals(Resource.loading(null), awaitItem())
+                assertEquals(errorResourceDatabase.first(), awaitItem())
+                awaitComplete()
+            }
+        }
+    }
 }
